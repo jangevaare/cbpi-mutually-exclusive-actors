@@ -13,7 +13,7 @@ class DependentActor(ActorBase):
         # Make sure the Base Actor is off
         self.api.switch_actor_off(int(self.base))
         # Hide Base Actor
-        for idx, value in cbpi.cache["actors"].iteritems():
+        for idx, value in list(cbpi.cache["actors"].items()):
             if idx == int(self.base):
                 value.hide = True
         # Synchronize current power setting with the Base Actor
@@ -27,10 +27,10 @@ class DependentActor(ActorBase):
 
     def on(self, power=None):
         dependency_name = ""
-        for idx, value in cbpi.cache["actors"].iteritems():
+        for idx, value in list(cbpi.cache["actors"].items()):
             if idx == int(self.dependency):
                 dependency_name = value.name
-        for idx, value in cbpi.cache["actors"].iteritems():
+        for idx, value in list(cbpi.cache["actors"].items()):
             if idx == int(self.dependency):
                 if (value.state == 0) & (self.dependency_type == "Restriction"):
                     self.api.switch_actor_on(int(self.base), power=power)
